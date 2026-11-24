@@ -1,0 +1,323 @@
+/* ==========================================================================
+   Avatar: The Last Airbender – fan page styles
+   Theme: ancient scroll + elemental balance
+   ========================================================================== */
+
+/* Fonts: Cinzel for calligraphic-style headings, Lora for readable body text.
+   Each has a fallback stack in case Google Fonts cannot load. */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap");
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Parchment and ink */
+  --color-parchment: #f4ead5;
+  --color-parchment-light: #faf4e6;
+  --color-parchment-dark: #e6d5b3;
+  --color-ink: #3b2f22;
+  --color-ink-soft: #5c4a36;
+  --color-border: #cbb48a;
+
+  /* Element accents: muted, earthy tones (no neon) */
+  --color-water: #2f6f8f;
+  --color-earth: #4f7a3a;
+  --color-fire: #a63d2a;
+  --color-air: #a8651a;
+
+  /* Typography */
+  --font-heading: "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  --radius: 6px;
+  --max-width: 60rem;
+  --transition: 200ms ease;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  /* Soft vignette gives a subtle aged-paper feel */
+  background:
+    radial-gradient(ellipse at center, var(--color-parchment-light) 0%, var(--color-parchment) 60%, var(--color-parchment-dark) 100%) fixed;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-sm);
+}
+
+p {
+  margin: 0 0 var(--space-sm);
+}
+
+a {
+  color: var(--color-water);
+  text-underline-offset: 0.2em;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-fire);
+}
+
+/* Clear keyboard focus for accessibility */
+a:focus-visible {
+  outline: 2px solid var(--color-water);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+cite {
+  font-style: italic;
+}
+
+/* ---------- Header ---------- */
+header {
+  text-align: center;
+  padding: var(--space-xl) var(--space-sm) var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin-bottom: var(--space-xs);
+}
+
+/* Tagline: the four elements */
+header > p {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-lg);
+}
+
+/* ---------- Navigation ---------- */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-md);
+}
+
+nav a {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+nav a:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-border);
+}
+
+/* ---------- Main layout ---------- */
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-sm);
+}
+
+main > section {
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+  /* Keep section headings visible below the top of the screen after a nav jump */
+  scroll-margin-top: var(--space-sm);
+}
+
+main > section:last-child {
+  border-bottom: none;
+}
+
+main h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Small decorative line under section headings */
+main h2::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 2px;
+  margin: var(--space-sm) auto 0;
+  background: linear-gradient(
+    to right,
+    var(--color-water) 0 25%,
+    var(--color-earth) 25% 50%,
+    var(--color-fire) 50% 75%,
+    var(--color-air) 75% 100%
+  );
+}
+
+/* Keep long text at a comfortable reading width */
+#about p {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- Card grids (nations + characters) ---------- */
+#nations,
+#characters ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-md);
+}
+
+/* The heading spans the full width above the nation cards */
+#nations h2 {
+  grid-column: 1 / -1;
+}
+
+#characters ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nation,
+#characters li {
+  background-color: var(--color-parchment-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.nation:hover,
+#characters li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgb(59 47 34 / 0.12);
+}
+
+/* ---------- Nation cards: one element color each ---------- */
+.nation {
+  --accent: var(--color-ink);
+  border-top: 4px solid var(--accent);
+}
+
+.nation h3 {
+  color: var(--accent);
+  font-size: 1.25rem;
+}
+
+.nation p {
+  margin-bottom: 0;
+}
+
+.nation--water { --accent: var(--color-water); }
+.nation--earth { --accent: var(--color-earth); }
+.nation--fire  { --accent: var(--color-fire); }
+.nation--air   { --accent: var(--color-air); }
+
+/* ---------- Characters ---------- */
+#characters strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- Show facts ---------- */
+#facts dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-sm) var(--space-lg);
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-parchment-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+#facts dt {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+#facts dd {
+  margin: 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: var(--space-lg) var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 30rem) {
+  /* Stack the facts list: label above value */
+  #facts dl {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: var(--space-md);
+  }
+
+  #facts dd {
+    margin-bottom: var(--space-sm);
+  }
+}
+
+/* ---------- Respect users who prefer less motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  .nation:hover,
+  #characters li:hover {
+    transform: none;
+  }
+}
